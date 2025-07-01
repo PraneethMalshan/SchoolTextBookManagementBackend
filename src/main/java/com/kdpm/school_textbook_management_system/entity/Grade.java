@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -20,5 +23,11 @@ public class Grade {
 
     @Column(name = "grade_name")
     private String gradeName;
+
+    @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
+    private Set<Class> classes;
 
 }

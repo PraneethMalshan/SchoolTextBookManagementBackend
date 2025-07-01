@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -33,4 +35,17 @@ public class Student {
 
     @Column(name = "student_image")
     private String studentImage;
+
+    @ManyToOne
+    @JoinColumn(name="class_id", nullable=false)
+    private Class classes;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<BookAllocation> allocations;
+
 }
+
+
+
+
+

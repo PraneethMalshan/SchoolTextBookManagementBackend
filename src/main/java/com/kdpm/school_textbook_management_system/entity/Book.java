@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Data
@@ -38,5 +39,12 @@ public class Book {
 
     @Column(name = "active_status",columnDefinition = "TINYINT default 0")
     private boolean activeStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "grade_id", referencedColumnName = "grade_id")
+    private Grade grade;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private Set<BookAllocation> allocations;
 
 }

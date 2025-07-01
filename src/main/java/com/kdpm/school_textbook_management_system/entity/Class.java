@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -21,5 +23,13 @@ public class Class {
 
     @Column(name = "class_name")
     private String className;
+
+    @ManyToOne
+    @JoinColumn(name = "grade_id", nullable=false)
+    private Grade grade;
+
+    @OneToMany(mappedBy="classes")
+    private Set<Student> students;
+
 
 }

@@ -20,6 +20,14 @@ public class BookAllocation {
     @Column(name = "book_allocation_id")
     private int bookAllocationId;
 
+    @ManyToOne
+    @JoinColumn(name = "studentId")
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "bookId")
+    private Book book;
+
     @Column(name = "allocated_date", columnDefinition = "DATETIME")
     private Date allocatedDate;
 
