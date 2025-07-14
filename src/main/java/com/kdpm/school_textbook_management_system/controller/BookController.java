@@ -47,6 +47,15 @@ public class BookController {
         );
     }
 
+    @GetMapping(path = "/get-all-books")
+    public ResponseEntity<StandardResponse> getAllBooks(){
+        List<BookGetResponseDTO> allBooks = bookService.getAllBooks();
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", allBooks),
+                HttpStatus.OK
+        );
+    }
+
 
 
 }

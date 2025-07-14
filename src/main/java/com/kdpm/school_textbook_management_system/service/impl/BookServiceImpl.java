@@ -61,5 +61,14 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    @Override
+    public List<BookGetResponseDTO> getAllBooks() {
+        List<Book> getAllBooks = bookRepository.findAll();
+        return getAllBooks.stream()
+                .map(book -> modelMapper.map(book, BookGetResponseDTO.class))
+                .collect(Collectors.toList());
+
+    }
+
 
 }
