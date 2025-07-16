@@ -1,6 +1,7 @@
 package com.kdpm.school_textbook_management_system.service.impl;
 
 import com.kdpm.school_textbook_management_system.dto.request.BookDTO;
+import com.kdpm.school_textbook_management_system.dto.request.BookUpdateDTO;
 import com.kdpm.school_textbook_management_system.dto.response.BookGetResponseDTO;
 import com.kdpm.school_textbook_management_system.entity.Book;
 import com.kdpm.school_textbook_management_system.repo.BookRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,6 +70,25 @@ public class BookServiceImpl implements BookService {
                 .map(book -> modelMapper.map(book, BookGetResponseDTO.class))
                 .collect(Collectors.toList());
 
+    }
+
+    @Override
+    public String updateBook(BookUpdateDTO bookUpdateDTO) {
+        if (bookRepository.existsById(bookUpdateDTO.getBookId())){
+            Book book = bookRepository.getReferenceById(bookUpdateDTO.getBookId());
+
+            book.setTitle(bookUpdateDTO.getTitle());
+            book.setSubject(bookUpdateDTO.getSubject());
+            book.setReceivedDate(bookUpdateDTO.getReceivedDate());
+            book.setBookImage(bookUpdateDTO.getBookImage());
+            book.setTotalCount(bookUpdateDTO.getTotalCount());
+            book.setActiveStatus(bookUpdateDTO.isActiveStatus());
+
+            bookRepository.save(book);
+            return bookUpdateDTO.getTitle() + " Updated Successfully ";
+        } else {
+            throw new RuntimeException("No Data Found from that ID");
+        }
     }
 
 

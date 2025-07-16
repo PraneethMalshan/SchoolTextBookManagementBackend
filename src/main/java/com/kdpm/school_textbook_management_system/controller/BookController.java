@@ -2,6 +2,7 @@ package com.kdpm.school_textbook_management_system.controller;
 
 
 import com.kdpm.school_textbook_management_system.dto.request.BookDTO;
+import com.kdpm.school_textbook_management_system.dto.request.BookUpdateDTO;
 import com.kdpm.school_textbook_management_system.dto.response.BookGetResponseDTO;
 import com.kdpm.school_textbook_management_system.service.BookService;
 import com.kdpm.school_textbook_management_system.util.StandardResponse;
@@ -52,6 +53,15 @@ public class BookController {
         List<BookGetResponseDTO> allBooks = bookService.getAllBooks();
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "Success", allBooks),
+                HttpStatus.OK
+        );
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<StandardResponse> updateBook(@RequestBody BookUpdateDTO bookUpdateDTO){
+        String message = bookService.updateBook(bookUpdateDTO);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", message),
                 HttpStatus.OK
         );
     }
