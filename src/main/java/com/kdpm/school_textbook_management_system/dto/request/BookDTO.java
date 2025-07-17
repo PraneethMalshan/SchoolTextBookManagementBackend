@@ -20,7 +20,7 @@ public class BookDTO {
     private LocalDate receivedDate;
     private String bookImage;
     private int totalCount;
-    private boolean activeStatus;
+    private boolean activeState;
     private String grade;
 
 }

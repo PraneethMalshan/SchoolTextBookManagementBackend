@@ -38,7 +38,7 @@ public class Book {
     private int totalCount;
 
     @Column(name = "active_status",columnDefinition = "TINYINT default 0")
-    private boolean activeStatus;
+    private boolean activeState;
 
     @ManyToOne
     @JoinColumn(name = "grade_id", referencedColumnName = "grade_id")

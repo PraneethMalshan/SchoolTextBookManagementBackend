@@ -17,5 +17,6 @@ public interface BookService {
 
     String updateBook(BookUpdateDTO bookUpdateDTO);
 
+    List<BookDTO> getAllBooksByActiveState(boolean activeState);
 }
 

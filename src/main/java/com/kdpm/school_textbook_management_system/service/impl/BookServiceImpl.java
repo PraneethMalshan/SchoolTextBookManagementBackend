@@ -4,6 +4,7 @@ import com.kdpm.school_textbook_management_system.dto.request.BookDTO;
 import com.kdpm.school_textbook_management_system.dto.request.BookUpdateDTO;
 import com.kdpm.school_textbook_management_system.dto.response.BookGetResponseDTO;
 import com.kdpm.school_textbook_management_system.entity.Book;
+import com.kdpm.school_textbook_management_system.exception.NotFoundException;
 import com.kdpm.school_textbook_management_system.repo.BookRepository;
 import com.kdpm.school_textbook_management_system.service.BookService;
 import org.modelmapper.ModelMapper;
@@ -66,9 +67,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookGetResponseDTO> getAllBooks() {
         List<Book> getAllBooks = bookRepository.findAll();
-        return getAllBooks.stream()
-                .map(book -> modelMapper.map(book, BookGetResponseDTO.class))
-                .collect(Collectors.toList());
+        if (getAllBooks.size() > 0) {
+            return getAllBooks.stream()
+                    .map(book -> modelMapper.map(book, BookGetResponseDTO.class))
+                    .collect(Collectors.toList());
+        } else {
+            throw new NotFoundException("Book is Not Found!!");
+        }
+
 
     }
 
@@ -82,12 +88,24 @@ public class BookServiceImpl implements BookService {
             book.setReceivedDate(bookUpdateDTO.getReceivedDate());
             book.setBookImage(bookUpdateDTO.getBookImage());
             book.setTotalCount(bookUpdateDTO.getTotalCount());
-            book.setActiveStatus(bookUpdateDTO.isActiveStatus());
+            book.setActiveState(bookUpdateDTO.isActiveState());
 
             bookRepository.save(book);
             return bookUpdateDTO.getTitle() + " Updated Successfully ";
         } else {
             throw new RuntimeException("No Data Found from that ID");
+        }
+    }
+
+    @Override
+    public List<BookDTO> getAllBooksByActiveState(boolean activeState) {
+        List<Book> getAllBooks = bookRepository.findAllByActiveStateEquals(activeState);
+        if (getAllBooks.size() > 0) {
+            return getAllBooks.stream()
+                    .map(book -> modelMapper.map(book, BookDTO.class))
+                    .collect(Collectors.toList());
+        } else {
+            throw new NotFoundException("Book is Not Found!!");
         }
     }
 

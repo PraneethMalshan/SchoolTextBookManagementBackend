@@ -66,6 +66,17 @@ public class BookController {
         );
     }
 
+    @GetMapping(path = "/get-all-books-by-active-state/{status}")
+    public ResponseEntity<StandardResponse> getAllBooksByActiveState(@PathVariable(value = "status") boolean activeState){
+
+        List<BookDTO> allBooks = bookService.getAllBooksByActiveState(activeState);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", allBooks),
+                HttpStatus.OK
+
+        );
+    }
+
 
 
 }

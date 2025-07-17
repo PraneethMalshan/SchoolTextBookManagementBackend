@@ -19,6 +19,6 @@ public class BookGetResponseDTO {
     private LocalDate receivedDate;
     private String bookImage;
     private int totalCount;
-    private boolean activeStatus;
+    private boolean activeState;
     private Grade grade;
 }

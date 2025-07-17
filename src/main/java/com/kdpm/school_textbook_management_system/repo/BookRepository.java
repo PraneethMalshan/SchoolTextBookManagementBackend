@@ -16,4 +16,5 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     List<Book> findBookByTitle(String title);
 
+    List<Book> findAllByActiveStateEquals(boolean activeState);
 }
