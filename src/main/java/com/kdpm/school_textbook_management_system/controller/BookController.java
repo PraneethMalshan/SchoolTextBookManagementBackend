@@ -77,6 +77,24 @@ public class BookController {
         );
     }
 
+    @GetMapping(path = "/get-by-name-and-status", params = "name")
+    public ResponseEntity<StandardResponse> getBookByNameAndState(@RequestParam(value = "name") String title){
+        List<BookGetResponseDTO> bookGetResponseDTOS = bookService.getBookByNameAndState(title);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", bookGetResponseDTOS),
+                HttpStatus.OK
+        );
+    }
+
+
+    @DeleteMapping(path = "/delete-book/{id}")
+    public ResponseEntity<StandardResponse> deleteBook(@PathVariable(value = "id") int bookId){
+        String message = bookService.deleteBook(bookId);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(204, "Success", message),
+                HttpStatus.OK
+        );
+    }
 
 
 }

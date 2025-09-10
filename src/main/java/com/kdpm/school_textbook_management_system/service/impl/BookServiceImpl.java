@@ -8,6 +8,7 @@ import com.kdpm.school_textbook_management_system.exception.NotFoundException;
 import com.kdpm.school_textbook_management_system.repo.BookRepository;
 import com.kdpm.school_textbook_management_system.service.BookService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -106,6 +107,30 @@ public class BookServiceImpl implements BookService {
                     .collect(Collectors.toList());
         } else {
             throw new NotFoundException("Book is Not Found!!");
+        }
+    }
+
+    @Override
+    public List<BookGetResponseDTO> getBookByNameAndState(String title) {
+        boolean b = true;
+        List<Book> books = bookRepository.findAllByTitleEqualsAndActiveStateEquals(title,b);
+        if (books.size() > 0) {
+            List<BookGetResponseDTO> bookGetResponseDTOS = modelMapper
+                    .map(books, new TypeToken<List<BookGetResponseDTO>>() {}
+                    .getType());
+            return bookGetResponseDTOS;
+        } else {
+            throw new RuntimeException("Book is Not Active!!");
+        }
+    }
+
+    @Override
+    public String deleteBook(int bookId) {
+        if (bookRepository.existsById(bookId)){
+            bookRepository.deleteBookByBookId(bookId);
+            return " Deleted Successfully " + bookId;
+        } else {
+            throw new NotFoundException("No Book Found for that ID!!!");
         }
     }
 

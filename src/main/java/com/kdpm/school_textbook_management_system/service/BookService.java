@@ -18,5 +18,10 @@ public interface BookService {
     String updateBook(BookUpdateDTO bookUpdateDTO);
 
     List<BookDTO> getAllBooksByActiveState(boolean activeState);
+
+    List<BookGetResponseDTO> getBookByNameAndState(String title);
+
+
+    String deleteBook(int bookId);
 }
 
