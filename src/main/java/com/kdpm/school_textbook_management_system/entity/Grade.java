@@ -30,4 +30,7 @@ public class Grade {
     @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
     private Set<Class> classes;
 
+    @OneToOne(mappedBy = "grade")
+    private Student student;
+
 }

@@ -43,6 +43,10 @@ public class Student {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<BookAllocation> allocations;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "grade_id", referencedColumnName = "grade_id")
+    private Grade grade ;
+
 }
 
 
