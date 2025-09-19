@@ -21,7 +21,7 @@ public class Grade {
     @Column(name = "grade_id")
     private int gradeId;
 
-    @Column(name = "grade_name")
+    @Column(name = "grade_name", unique = true)
     private String gradeName;
 
     @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
