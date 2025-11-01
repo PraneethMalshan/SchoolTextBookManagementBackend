@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class GradeServiceImpl implements GradeService {
 
@@ -39,5 +42,13 @@ public class GradeServiceImpl implements GradeService {
         } else {
             throw new NotFoundException("No Grade Found for that ID!!!");
         }
+    }
+
+    @Override
+    public List<GradeDTO> getAllGrades() {
+        List<Grade> getAllGrades = gradeRepository.findAll();
+        return getAllGrades.stream()
+                .map(grade -> modelMapper.map(grade, GradeDTO.class))
+                .collect(Collectors.toList());
     }
 }

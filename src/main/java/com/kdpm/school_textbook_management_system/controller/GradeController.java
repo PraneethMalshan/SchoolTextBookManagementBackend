@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/grade")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -32,6 +34,15 @@ public class GradeController {
         String message = gradeService.deleteGrade(gradeId);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(204, "Success", message),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping(path = "/get-all-grades")
+    public ResponseEntity<StandardResponse> getAllGrades() {
+        List<GradeDTO> allGrades = gradeService.getAllGrades();
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", allGrades),
                 HttpStatus.OK
         );
     }
