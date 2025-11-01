@@ -27,4 +27,13 @@ public class GradeController {
         );
     }
 
+    @DeleteMapping(path = "/delete-grade/{id}")
+    public ResponseEntity<StandardResponse> deleteGrade(@PathVariable(value = "id") int gradeId) {
+        String message = gradeService.deleteGrade(gradeId);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(204, "Success", message),
+                HttpStatus.OK
+        );
+    }
+
 }
