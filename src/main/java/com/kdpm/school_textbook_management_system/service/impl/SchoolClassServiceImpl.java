@@ -3,6 +3,7 @@ package com.kdpm.school_textbook_management_system.service.impl;
 import com.kdpm.school_textbook_management_system.dto.request.SchoolClassDTO;
 import com.kdpm.school_textbook_management_system.entity.Grade;
 import com.kdpm.school_textbook_management_system.entity.SchoolClass;
+import com.kdpm.school_textbook_management_system.exception.NotFoundException;
 import com.kdpm.school_textbook_management_system.repo.GradeRepository;
 import com.kdpm.school_textbook_management_system.repo.SchoolClassRepository;
 import com.kdpm.school_textbook_management_system.service.SchoolClassService;
@@ -10,6 +11,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SchoolClassServiceImpl implements SchoolClassService {
@@ -38,6 +42,23 @@ public class SchoolClassServiceImpl implements SchoolClassService {
         }
     }
 
+    @Override
+    public List<SchoolClassDTO> getAllSchoolClasses() {
+        List<SchoolClass> schoolClasses = schoolClassRepository.findAll();
+        return schoolClasses.stream()
+                .map(schoolClass -> modelMapper.map(schoolClass, SchoolClassDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String deleteClass(int schoolClassId) {
+        if (schoolClassRepository.existsById(schoolClassId)) {
+            schoolClassRepository.deleteSchoolClassBySchoolClassId(schoolClassId);
+            return "Deleted Successfully " + schoolClassId;
+        } else {
+            throw new NotFoundException("No School Class Found for that ID!!!");
+        }
+    }
 
 
 }

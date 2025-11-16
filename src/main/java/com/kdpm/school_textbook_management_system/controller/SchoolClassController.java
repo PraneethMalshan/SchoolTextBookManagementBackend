@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/class")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -24,6 +26,24 @@ public class SchoolClassController {
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(201, "Success", message),
                 HttpStatus.CREATED
+        );
+    }
+
+    @GetMapping(path = "/get-all-classes")
+    public ResponseEntity<StandardResponse> getAllSchoolClasses(){
+        List<SchoolClassDTO> schoolClassDTOS = schoolClassService.getAllSchoolClasses();
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", schoolClassDTOS),
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping(path = "/delete-school-class/{id}")
+    public ResponseEntity<StandardResponse> deleteClass (@PathVariable(value = "id") int schoolClassId){
+        String message = schoolClassService.deleteClass(schoolClassId);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(204, "Success", message),
+                HttpStatus.OK
         );
     }
 
