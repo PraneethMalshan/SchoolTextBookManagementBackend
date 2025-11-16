@@ -14,22 +14,21 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Table(name = "classes")
-public class Class {
+public class SchoolClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "class_id")
-    private int classId;
+    @Column(name = "school_class_id")
+    private int schoolClassId;
 
-    @Column(name = "class_name")
-    private String className;
+    @Column(name = "school_class_name", unique = true)
+    private String schoolClassName;
 
     @ManyToOne
     @JoinColumn(name = "grade_id", nullable=false)
     private Grade grade;
 
-    @OneToMany(mappedBy="classes")
+    @OneToMany(mappedBy="schoolClass")
     private Set<Student> students;
-
 
 }

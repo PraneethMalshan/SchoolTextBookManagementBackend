@@ -28,9 +28,9 @@ public class Grade {
     private List<Book> books;
 
     @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
-    private Set<Class> classes;
+    private Set<SchoolClass> schoolClass;
 
-    @OneToOne(mappedBy = "grade")
-    private Student student;
+//    @OneToOne(mappedBy = "grade")
+//    private Student student;
 
 }

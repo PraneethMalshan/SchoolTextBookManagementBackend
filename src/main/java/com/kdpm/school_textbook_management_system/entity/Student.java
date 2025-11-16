@@ -37,15 +37,15 @@ public class Student {
     private String studentImage;
 
     @ManyToOne
-    @JoinColumn(name="class_id", nullable=false)
-    private Class classes;
+    @JoinColumn(name="school_class_id", nullable=false)
+    private SchoolClass schoolClass;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<BookAllocation> allocations;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "grade_id", referencedColumnName = "grade_id")
-    private Grade grade ;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "grade_id", referencedColumnName = "grade_id")
+//    private Grade grade ;
 
 }
 
